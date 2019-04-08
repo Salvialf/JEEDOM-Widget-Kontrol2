@@ -29,12 +29,14 @@
       var valueThickness = ('#epaisseur#' !='#'+'epaisseur#') ? "#epaisseur#":"0.4";
       var valueCursor = ('#curseur#' !='#'+'curseur#') ? "#curseur#":"";
       var valueArc = ('#angleArc#' !='#'+'angleArc#') ? "#angleArc#":"330";
-      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":"-165";   
+      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":"-165";
+      var valueMin = is_numeric('#minValue#') ? parseFloat('#minValue#'):0;
+      var valueMax = is_numeric('#maxValue#') ? parseFloat('#maxValue#'):99;
       
    		$.include(['plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/jquery.kontrol.js'], function() {
             $(".cmd[data-cmd_uid=#uid#] .dial").dial({
-              	min: ('#minValue#' == '') ? 0 : parseInt('#minValue#'),
-       	 		max: ('#maxValue#' == '') ? 100 : parseInt('#maxValue#'),
+              	min: valueMin,
+              	max: valueMax,
               	fgColor: colorfg,
                 bgColor: colorbg,
               	height: valueTaille,

@@ -1,0 +1,65 @@
+<!-- ** Forket from https://github.com/aterrien/jQuery-Kontrol ** -->
+
+<div style="width:auto;height:auto;padding:0px;" class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+	<div class="displayState#uid#" style="font-size:28px;font-weight:bold;height:100%;width:100%;position:absolute;display:flex;justify-content:center;align-items:center;"></div>
+  	<div class="displayUnite#uid#" style="font-weight:bold;height:100%;width:100%;margin-top:20px;position:absolute;display:flex;justify-content:center;align-items:center;"></div>
+	<center><span class="cmdName" style="padding-top:1px;font-weight:bold;font-size:13px;#hideCmdName#">#name_display#</span></center>
+  	<div style="position:relative;margin:0px 5px 0px 5px;"><input type="text" class="kontrol#uid# dial" value=#state# /></div>
+  	<script>
+      jeedom.cmd.update['#id#'] = function(_options){
+      
+      var colorfg = ('#colCurseur#' !='#'+'colCurseur#') ? "#colCurseur#":"#FFFFFF";
+      var colorbg = ('#colFond#' !='#'+'colFond#') ? "#colFond#":"#cmdColor#";
+      var colorState = ('#colEtat#' !='#'+'colEtat#') ? "#colEtat#":"#FFFFFF";
+      var colorUnite = ('#colUnite#' !='#'+'colUnite#') ? "#colUnite#":"#FFFFFF";
+      var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):110;
+      var valueThickness = ('#epaisseur#' !='#'+'epaisseur#') ? "#epaisseur#":"0.4";
+      var valueCursor = ('#curseur#' !='#'+'curseur#') ? "#curseur#":"";
+      var valueArc = ('#angleArc#' !='#'+'angleArc#') ? "#angleArc#":"330";
+      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":"-165";   
+      
+   		$.include(['plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/jquery.kontrol.js'], function() {
+            $(".cmd[data-cmd_uid=#uid#] .dial").dial({
+              	min: ('#minValue#' == '') ? 0 : parseInt('#minValue#'),
+       	 		max: ('#maxValue#' == '') ? 100 : parseInt('#maxValue#'),
+              	fgColor: colorfg,
+                bgColor: colorbg,
+              	height: valueTaille,
+              	width: valueTaille,
+              	thickness : valueThickness,
+              	cursor: valueCursor,
+             	angleArc: valueArc,
+              	angleOffset: valueOffset,
+              	displayPrevious: true,
+                displayInput: false,
+				noScroll : false,
+              	stopper: true,
+                change: function(v) {
+                jeedom.cmd.execute({id: '#id#', value: {slider: v}});
+                }
+            });
+        });
+        
+        $('input.kontrol#uid#').val(_options.display_value).trigger('change');
+        
+        var displayState = ('#Etat#' !='#'+'Etat#') ? "#Etat#":"on";
+        var displayUnite = ('#Unite#' !='#'+'Unite#') ? "#Unite#":"on";
+        
+        if (displayState == 'on') { 
+        $('.cmd[data-cmd_id=#id#] .displayState#uid#').empty().html(_options.display_value).css('color', colorState).show();
+        }
+        else {
+        $('.cmd[data-cmd_id=#id#] .displayState#uid#').empty().html(_options.display_value).css('color', colorState).hide();
+        }
+        
+        if (displayUnite == 'on') { 
+        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').empty().html('#unite#').css('color', colorUnite).show();
+        }
+        else {
+        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').empty().html('#unite#').css('color', colorUnite).hide();
+        }
+              
+		}
+      	jeedom.cmd.update['#id#']({display_value:'#state#'});
+    </script>
+</div>

@@ -37,3 +37,4 @@ Les couleurs peuvent être renseignées par [leur valeur hexadécimale ou leur n
 L'ensemble des paramètres optionnels est rappelé au début du code du widget.
 
 ---------------
+[Lien Market](https://www.jeedom.com/market/index.php?v=d&p=market&type=widget&author=salvialf&&name=Kontrol2)

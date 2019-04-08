@@ -34,6 +34,6 @@ Les couleurs peuvent être renseignées par [leur valeur hexadécimale ou leur n
 * **Etat**: Pour cacher la valeur de retour d'état au centre du widget. *('on' par défaut)*
 * **Unite**: Pour cacher l'unité sous la valeur au centre du widget. *('on' par défaut)*
 
->L'ensemble des paramètres optionnels est rappelé au début du code du widget.
+L'ensemble des paramètres optionnels est rappelé au début du code du widget.
 
 ---------------

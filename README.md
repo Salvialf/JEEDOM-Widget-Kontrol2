@@ -34,6 +34,8 @@ Les couleurs peuvent être renseignées par [leur valeur hexadécimale ou leur n
 * **Etat**: Pour cacher la valeur de retour d'état au centre du widget. *('on' par défaut)*
 * **Unite**: Pour cacher l'unité sous la valeur au centre du widget. *('on' par défaut)*
 
+>L'unité ainsi que les valeurs minimales et maximales sont à renseigner sur la commande 'état' associée et/ou sur la commande curseur selon la version de Jeedom. A défaut la jauge va de 0 à 99 et l'unité n'est pas affichée.
+
 L'ensemble des paramètres optionnels est rappelé au début du code du widget.
 
 ---------------

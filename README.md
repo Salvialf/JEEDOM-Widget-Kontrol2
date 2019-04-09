@@ -39,4 +39,16 @@ L'unité ainsi que les valeurs minimales et maximales sont à renseigner sur la 
 L'ensemble des paramètres optionnels est rappelé au début du code du widget.
 
 ---------------
+
+### Exemple de paramétrage:
+
+* **angleDepart**: -125
+* **angleCurseur**: 250
+* **colFond**: #FFFFFF (ou 'white')
+* **colCurseur**: #cmdColor# (couleur de la catégorie)
+* **colEtat**: #cmdColor# (couleur de la catégorie)
+
+<img src="/doc/exempleKontrol2.jpg" alt="exemple"/>
+
+
 [Lien Market](https://www.jeedom.com/market/index.php?v=d&p=market&type=widget&author=salvialf&&name=Kontrol2)

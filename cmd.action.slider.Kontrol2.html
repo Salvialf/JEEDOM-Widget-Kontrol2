@@ -1,4 +1,4 @@
-<!-- ** Forket from https://github.com/aterrien/jQuery-Kontrol ** -->
+<!-- ** Forked from https://github.com/aterrien/jQuery-Kontrol ** -->
 
 <!--    		*******      PARAMETRES    *******      		-->
 <!-- 'colEtat': couleur de la valeur au centre  				-->
@@ -12,26 +12,32 @@
 <!-- 'angleArc': degré d'ouverture de la jauge de 0 à 360		-->
 <!-- 'Etat': cacher la valeur de retour d'état au centre		-->
 <!-- 'Unite': Pour cacher l'unité sous la valeur au centre		-->
+<!-- 'fond': '1' pour afficher un fond (orbe noir)				-->
 
-<div style="width:auto;height:auto;padding:0px;" class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
-  	<div class="displayState#uid#"></div>
+<div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+  	<img src="plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/nothing.png" id="background#id#" />
+  	<div class="displayState#uid#" id="displayState#uid#"></div>
   	<div class="displayUnite#uid#"></div>
-	<center><span class="cmdName" style="padding-top:1px;font-weight:bold;font-size:13px;#hideCmdName#">#name_display#</span></center>
-  	<div style="position:relative;margin:0px 5px 0px 5px;"><input type="text" class="kontrol#uid# dial" value=#state# /></div>
+  	<span class="cmdName" style="padding-top:1px;font-weight:bold;font-size:13px;#hideCmdName#">#name_display#</span>
+  	<div style="position:relative;margin:5px 5px 5px 5px;"><input type="text" class="kontrol#uid# dial"/></div>
   <style>
-    .displayState#uid# {
-      font-size:28px;
-      font-weight:bold;
+#background#id# {
+  	margin-top:22px;
+  	position:absolute;
+  	display:flex;
+  	justify-content:center;
+  	align-items:center;
+    }
+  	.displayState#uid# {
       height:100%;
       width:100%;
+      font-size:28px;
       position:absolute;
       display:flex;
       justify-content:center;
       align-items:center;
     }
-    
     .displayUnite#uid# {
-      font-weight:bold;
       height:100%;
       width:100%;
       margin-top:20px;
@@ -44,15 +50,15 @@
   <script>
       jeedom.cmd.update['#id#'] = function(_options){
       
-      var colorfg = ('#colCurseur#' !='#'+'colCurseur#') ? "#colCurseur#":"#FFFFFF";
-      var colorbg = ('#colFond#' !='#'+'colFond#') ? "#colFond#":"#cmdColor#";
+      var colorfg = ('#colCurseur#' !='#'+'colCurseur#') ? "#colCurseur#":"#cmdColor#";
+      var colorbg = ('#colFond#' !='#'+'colFond#') ? "#colFond#":"rgb(0,0,0,0.5)";
       var colorState = ('#colEtat#' !='#'+'colEtat#') ? "#colEtat#":"#FFFFFF";
       var colorUnite = ('#colUnite#' !='#'+'colUnite#') ? "#colUnite#":"#FFFFFF";
       var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):110;
-      var valueThickness = ('#epaisseur#' !='#'+'epaisseur#') ? "#epaisseur#":"0.4";
+      var valueThickness = ('#epaisseur#' !='#'+'epaisseur#') ? "#epaisseur#":0.35;
       var valueCursor = ('#curseur#' !='#'+'curseur#') ? "#curseur#":"";
-      var valueArc = ('#angleArc#' !='#'+'angleArc#') ? "#angleArc#":"330";
-      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":"-165";
+      var valueArc = ('#angleArc#' !='#'+'angleArc#') ? "#angleArc#":330;
+      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":-165;
       var valueMin = is_numeric('#minValue#') ? parseFloat('#minValue#'):0;
       var valueMax = is_numeric('#maxValue#') ? parseFloat('#maxValue#'):99;
       
@@ -79,23 +85,24 @@
         });
         
         $('input.kontrol#uid#').val(_options.display_value).trigger('change');
+
+        if ('#fond#' == '1') {
+  		document.getElementById("background#id#").src = "plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/blank.png";
+        $('#background#id#').css('width',valueTaille+10+'px');
+        $('#background#id#').css('height',valueTaille+10+'px');
+        }
         
+  /*      var valueSize = ('#valuesize#' !='#'+'valuesize#') ? "#valuesize#":28; $('.displayState#uid#').css('font-size',valueSize+'px');
+        var uniteSize = ('#unitesize#' !='#'+'unitesize#') ? "#unitesize#":10; $('.displayUnite#uid#').css('font-size',uniteSize+'px');
+  */     
         var displayState = ('#Etat#' !='#'+'Etat#') ? "#Etat#":"on";
         var displayUnite = ('#Unite#' !='#'+'Unite#') ? "#Unite#":"on";
         
         if (displayState == 'on') { 
-        $('.cmd[data-cmd_id=#id#] .displayState#uid#').empty().html(_options.display_value).css('color', colorState).show();
-        }
-        else {
-        $('.cmd[data-cmd_id=#id#] .displayState#uid#').empty().html(_options.display_value).css('color', colorState).hide();
-        }
+        $('.cmd[data-cmd_id=#id#] .displayState#uid#').html(_options.display_value).css('color', colorState).show(); }
         
         if (displayUnite == 'on') { 
-        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').empty().html('#unite#').css('color', colorUnite).show();
-        }
-        else {
-        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').empty().html('#unite#').css('color', colorUnite).hide();
-        }
+        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').html('#unite#').css('color', colorUnite).show(); }
               
 		}
       	jeedom.cmd.update['#id#']({display_value:'#state#'});

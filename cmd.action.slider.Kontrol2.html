@@ -14,37 +14,47 @@
 <!-- 'Unite': Pour cacher l'unité sous la valeur au centre		-->
 <!-- 'fond': '1' pour afficher un fond (orbe noir)				-->
 
-<div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
-  	<img src="plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/nothing.png" id="background#id#" />
-  	<div class="displayState#uid#" id="displayState#uid#"></div>
+<div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">	
+  	<img src="plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/nothing.png" id="background#id#"/>
+  	<div class="displayState#uid#"></div>
   	<div class="displayUnite#uid#"></div>
-  	<span class="cmdName" style="padding-top:1px;font-weight:bold;font-size:13px;#hideCmdName#">#name_display#</span>
-  	<div style="position:relative;margin:5px 5px 5px 5px;"><input type="text" class="kontrol#uid# dial"/></div>
+  	<div class="nameDisplay#uid#">#name_display#</div>
+  	<div style="position:relative;margin:20px 5px 5px 5px;"><input type="text" class="kontrol#uid# dial"/></div>
   <style>
+.nameDisplay#uid# {
+  	position:absolute;
+  	display:flex;
+  	height:100%;
+  	width:100%;
+  	justify-content:center;
+  	font-weight:bold;
+  	font-size:13px;
+  	#hideCmdName#
+    }
+.displayState#uid# {
+    height:100%;
+    width:100%;
+    font-size:28px;
+    position:absolute;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    }
+.displayUnite#uid# {
+    height:100%;
+    width:100%;
+    margin-top:20px;
+    position:absolute;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    }
 #background#id# {
-  	margin-top:22px;
+  	margin-top:17px;
   	position:absolute;
   	display:flex;
   	justify-content:center;
   	align-items:center;
-    }
-  	.displayState#uid# {
-      height:100%;
-      width:100%;
-      font-size:28px;
-      position:absolute;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-    .displayUnite#uid# {
-      height:100%;
-      width:100%;
-      margin-top:20px;
-      position:absolute;
-      display:flex;
-      justify-content:center;
-      align-items:center;
     }
   </style>
   <script>

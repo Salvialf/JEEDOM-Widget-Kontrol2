@@ -14,47 +14,24 @@
 <!-- 'Unite': Pour cacher l'unité sous la valeur au centre		-->
 <!-- 'fond': '1' pour afficher un fond (orbe noir)				-->
 
-<div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">	
-  	<img src="plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/nothing.png" id="background#id#"/>
-  	<div class="displayState#uid#"></div>
-  	<div class="displayUnite#uid#"></div>
-  	<div class="nameDisplay#uid#">#name_display#</div>
-  	<div style="position:relative;margin:20px 5px 5px 5px;"><input type="text" class="kontrol#uid# dial"/></div>
+<div class="cmd cmd-widget cursor" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">	
+  	<span class="nameDisplay#uid#">#name_display#</span>	
+  	  <div id="background#id#" style="position:relative;">
+      <div class="rowStateUnite#uid#"><span style="font-size:28px;" class="displayState#uid#"></span><br>
+      <span class="displayUnite#uid#"></span></div>
+      <input type="text" class="kontrol#uid# dial"/></div>
   <style>
 .nameDisplay#uid# {
-  	position:absolute;
-  	display:flex;
-  	height:100%;
-  	width:100%;
-  	justify-content:center;
   	font-weight:bold;
-  	font-size:13px;
+  	font-size:12px;
   	#hideCmdName#
     }
-.displayState#uid# {
-    height:100%;
-    width:100%;
-    font-size:28px;
-    position:absolute;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    }
-.displayUnite#uid# {
-    height:100%;
-    width:100%;
-    margin-top:20px;
-    position:absolute;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    }
-#background#id# {
-  	margin-top:17px;
+.rowStateUnite#uid# {
+    line-height:0.9;
   	position:absolute;
-  	display:flex;
-  	justify-content:center;
-  	align-items:center;
+  	top:48%;
+  	left:50%;
+  	transform:translate(-50%,-50%);
     }
   </style>
   <script>
@@ -97,23 +74,21 @@
         $('input.kontrol#uid#').val(_options.display_value).trigger('change');
 
         if ('#fond#' == '1') {
-  		document.getElementById("background#id#").src = "plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/blank.png";
-        $('#background#id#').css('width',valueTaille+10+'px');
-        $('#background#id#').css('height',valueTaille+10+'px');
+        $("#background#id#").css({'background-image':"url('plugins/widget/core/template/dashboard/cmd.action.slider.Kontrol2/blank.png')",'background-size':'100%','background-repeat': 'no-repeat'});
         }
-        
-  /*      var valueSize = ('#valuesize#' !='#'+'valuesize#') ? "#valuesize#":28; $('.displayState#uid#').css('font-size',valueSize+'px');
+  /*      
+        var valueSize = ('#valuesize#' !='#'+'valuesize#') ? "#valuesize#":28; $('.displayState#uid#').css('font-size',valueSize+'px');
         var uniteSize = ('#unitesize#' !='#'+'unitesize#') ? "#unitesize#":10; $('.displayUnite#uid#').css('font-size',uniteSize+'px');
   */     
         var displayState = ('#Etat#' !='#'+'Etat#') ? "#Etat#":"on";
         var displayUnite = ('#Unite#' !='#'+'Unite#') ? "#Unite#":"on";
         
         if (displayState == 'on') { 
-        $('.cmd[data-cmd_id=#id#] .displayState#uid#').html(_options.display_value).css('color', colorState).show(); }
+        $('.cmd[data-cmd_id=#id#] .displayState#uid#').html(_options.display_value).css('color', colorState); }
         
         if (displayUnite == 'on') { 
-        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').html('#unite#').css('color', colorUnite).show(); }
-              
+        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').html('#unite#').css('color', colorUnite); }
+        
 		}
       	jeedom.cmd.update['#id#']({display_value:'#state#'});
     </script>

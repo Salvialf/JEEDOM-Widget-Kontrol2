@@ -1,0 +1,106 @@
+<!-- ** Forked from https://github.com/aterrien/jQuery-Kontrol ** -->
+
+<!--    		*******      PARAMETRES    *******      		-->
+<!-- 'colEtat': couleur de la valeur au centre  				-->
+<!-- 'colUnite': couleur de l'unité								-->
+<!-- 'colFond': couleur de fond de la jauge						-->
+<!-- 'colCurseur': couleur du curseur							-->
+<!-- 'taille': taille du widget en pixels						-->
+<!-- 'epaisseur': épaisseur du curseur de 0 à 1					-->
+<!-- 'curseur': taille du curseur en pixels						-->
+<!-- 'angleDepart': point de départ du curseur de 180 à -180 	-->
+<!-- 'angleArc': degré d'ouverture de la jauge de 0 à 360		-->
+<!-- 'Etat': cacher la valeur de retour d'état au centre		-->
+<!-- 'Unite': Pour cacher l'unité sous la valeur au centre		-->
+<!-- 'fond': '1' pour afficher un fond (orbe noir)				-->
+
+<div class="cmd cmd-widget cursor" data-type="action" data-subtype="slider" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">	
+  	<div class="title #hide_name#">
+    <div class="cmdName">#name_display#</div>
+  </div>	
+  	  <div id="background#id#" style="position:relative;">
+      <div class="rowStateUnite#uid#"><span style="font-size:28px;" class="displayState#uid#"></span><br>
+      <span class="displayUnite#uid#"></span></div>
+      <input type="text" class="kontrol#uid# dial"/></div>
+  <span class="timeCmd#uid# timeCmd label label-default"></span>
+  <style>
+.rowStateUnite#uid# {
+    line-height:0.9;
+  	position:absolute;
+  	top:48%;
+  	left:50%;
+  	transform:translate(-50%,-50%);
+    }
+  </style>
+  <script>
+      jeedom.cmd.update['#id#'] = function(_options){
+      var colorfg = ('#colCurseur#' !='#'+'colCurseur#') ? "#colCurseur#":"red";
+      var colorbg = ('#colFond#' !='#'+'colFond#') ? "#colFond#":"rgb(0,0,0,0.5)";
+      var colorState = ('#colEtat#' !='#'+'colEtat#') ? "#colEtat#":"";
+      var colorUnite = ('#colUnite#' !='#'+'colUnite#') ? "#colUnite#":"";
+      var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):110;
+      var valueThickness = ('#epaisseur#' !='#'+'epaisseur#') ? "#epaisseur#":0.35;
+      var valueCursor = ('#curseur#' !='#'+'curseur#') ? "#curseur#":"";
+      var valueArc = ('#angleArc#' !='#'+'angleArc#') ? "#angleArc#":330;
+      var valueOffset = ('#angleDepart#' !='#'+'angleDepart#') ? "#angleDepart#":-165;
+      var valueMin = is_numeric('#minValue#') ? parseFloat('#minValue#'):0;
+      var valueMax = is_numeric('#maxValue#') ? parseFloat('#maxValue#'):99;
+      
+   		$.include(['data/customTemplates/dashboard/cmd.action.slider.Kontrol2/jquery.kontrol.js'], function() {
+            $(".cmd[data-cmd_uid=#uid#] .dial").dial({
+              	min: valueMin,
+              	max: valueMax,
+              	fgColor: colorfg,
+                bgColor: colorbg,
+              	height: valueTaille,
+              	width: valueTaille,
+              	thickness : valueThickness,
+              	cursor: valueCursor,
+             	angleArc: valueArc,
+              	angleOffset: valueOffset,
+              	displayPrevious: true,
+                displayInput: false,
+				noScroll : false,
+              	stopper: true,
+                change: function(v) {
+                jeedom.cmd.execute({id: '#id#', value: {slider: v}});
+                }
+            });
+        });
+        
+        $('input.kontrol#uid#').val(_options.display_value).trigger('change');
+
+        if ('#fond#' == '1') {
+        $("#background#id#").css({'background-image':"url('data/customTemplates/dashboard/cmd.action.slider.Kontrol2/blank.png')",'background-size':'100%','background-repeat': 'no-repeat'});
+        }
+  /*      
+        var valueSize = ('#valuesize#' !='#'+'valuesize#') ? "#valuesize#":28; $('.displayState#uid#').css('font-size',valueSize+'px');
+        var uniteSize = ('#unitesize#' !='#'+'unitesize#') ? "#unitesize#":10; $('.displayUnite#uid#').css('font-size',uniteSize+'px');
+  */     
+        var displayState = ('#Etat#' !='#'+'Etat#') ? "#Etat#":"on";
+        var displayUnite = ('#Unite#' !='#'+'Unite#') ? "#Unite#":"on";
+        
+        if (displayState == 'on') { 
+        $('.cmd[data-cmd_id=#id#] .displayState#uid#').html(_options.display_value).css('color', colorState); }
+        
+        if (displayUnite == 'on') { 
+        $('.cmd[data-cmd_id=#id#] .displayUnite#uid#').html('#unite#').css('color', colorUnite); }
+        
+        if ('#time#' == 'duree') {  
+        jeedom.cmd.displayDuration(_options.valueDate,  $('.cmd[data-cmd_id=#id#] .timeCmd'));
+          }
+      else if ('#time#' == 'date') {
+      	var date = new Date(_options.valueDate);
+		var format = $.datepicker.formatDate('D dd/mm', date);
+		var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes();
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(format+'<br>'+time);
+      	}
+      else if ('#time#' == 'heure') {
+        var date = new Date(_options.valueDate);
+        var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes()+":"+(date.getSeconds()<10?'0':'')+date.getSeconds()+"";
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(time);
+      	}
+		}
+      	jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'})
+    </script>
+</div>
